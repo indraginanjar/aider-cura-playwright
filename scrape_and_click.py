@@ -1,20 +1,24 @@
 from playwright.sync_api import sync_playwright
 from datetime import datetime, timedelta
 import time
+import os
 
 BASE_URL = "https://katalon-demo-cura.herokuapp.com/"
 
+# Create a directory for reports with the current datetime
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+report_directory = f"reports/acp-{timestamp}"
+os.makedirs(report_directory, exist_ok=True)
 
 def validate_page(page, expected_elements):
     for element in expected_elements:
         page.wait_for_selector(element)
         print(f"Validated presence of: {element}")
 
-
 def take_screenshot(page, name):
-    page.screenshot(path=f"{name}.png")
-    print(f"Screenshot taken: {name}.png")
-
+    screenshot_path = os.path.join(report_directory, f"{name}.png")
+    page.screenshot(path=screenshot_path)
+    print(f"Screenshot taken: {screenshot_path}")
 
 def main():
     with sync_playwright() as p:
@@ -91,7 +95,6 @@ def main():
         finally:
             # Close the browser
             browser.close()
-
 
 if __name__ == "__main__":
     main()
