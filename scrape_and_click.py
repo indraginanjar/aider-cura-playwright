@@ -83,32 +83,6 @@ def generate_html_report(steps, validation_results):
     html_content += """
             </table>
         </div>
-        <div class="validation-results">
-            <h2>Validation Results</h2>
-            <table>
-                <tr>
-                    <th>Validation Description</th>
-                    <th>Pass</th>
-                    <th>Fail</th>
-                </tr>
-    """
-    
-    # Add each validation result to the report
-    for result in validation_results:
-        description, status, _ = result
-        pass_status = "✔" if status == "Pass" else ""
-        fail_status = "✖" if status == "Fail" else ""
-        html_content += f"""
-                <tr>
-                    <td>{description}</td>
-                    <td>{pass_status}</td>
-                    <td>{fail_status}</td>
-                </tr>
-        """
-    
-    html_content += """
-            </table>
-        </div>
         <div class="screenshots">
     """
     
