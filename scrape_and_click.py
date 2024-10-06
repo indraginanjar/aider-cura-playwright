@@ -56,8 +56,10 @@ def main():
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
 
-            # Logout from the web
-            page.click("text='Logout'")
+            # Scrape the confirmation page to find the logout button
+            logout_button_selector = "a[href='https://katalon-demo-cura.herokuapp.com/#']"  # Update this selector based on the actual confirmation page structure
+            page.wait_for_selector(logout_button_selector)
+            page.click(logout_button_selector)  # Click the logout button
 
         except Exception as e:
             print(f"An error occurred: {e}")
