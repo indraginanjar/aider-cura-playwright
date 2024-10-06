@@ -1,2 +1,5 @@
 .aider*
 !.aider.input.history
+reports/
+*.png
+.venv/
