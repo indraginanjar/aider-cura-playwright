@@ -15,15 +15,15 @@ def main():
             page.click("text='Make Appointment'")
 
             # Wait for the username field to be visible
-            page.wait_for_selector("#txtUsername")
+            page.wait_for_selector("input[id='txt-username']")
 
             # Scrape the demo account credentials
             username = "John Doe"
             password = "ThisIsNotAPassword"
 
             # Input the username and password
-            page.fill("#txtUsername", username)
-            page.fill("#txtPassword", password)
+            page.fill("input[id='txt-username']", username)
+            page.fill("input[id='txt-password']", password)
 
             # Submit the login form
             page.click("button[type='submit']")
