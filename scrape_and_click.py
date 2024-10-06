@@ -36,7 +36,7 @@ def main():
             page.select_option("select[id='combo_facility']", "Seoul CURA Healthcare Center")
 
             # Choose Medicaid
-            page.check("input[id='radio_program_medicaid']")
+            page.check("input[value='Medicaid']")
 
             # Set the visit date to next month
             next_month = (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
