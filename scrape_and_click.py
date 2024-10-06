@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 import re
 import time
 
+BASE_URL = "https://katalon-demo-cura.herokuapp.com/"
+
 def validate_page(page, expected_elements):
     for element in expected_elements:
         page.wait_for_selector(element)
@@ -16,7 +18,7 @@ def main():
 
         try:
             # Open the target website
-            page.goto("https://katalon-demo-cura.herokuapp.com/")
+            page.goto(BASE_URL)
             validate_page(page, ["text='Make Appointment'"])  # Validate landing page
 
             # Wait for the "Make Appointment" button and click it
@@ -38,7 +40,7 @@ def main():
             page.click("button[type='submit']")
 
             # Wait for the appointment page to load
-            page.wait_for_url("https://katalon-demo-cura.herokuapp.com/#appointment")
+            page.wait_for_url(f"{BASE_URL}#appointment")
             validate_page(page, ["select[id='combo_facility']", "button[type='submit']"])  # Validate appointment page
 
             # Select the facility
