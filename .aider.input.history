@@ -1,0 +1,369 @@
+
+# 2024-10-07 00:50:16.255678
++/web https://aider.chat/docs/scripting.html
+
+# 2024-10-07 00:53:28.452571
++create an aider script python for scrapping https://katalon-demo-cura.herokuapp.com/ web, and then clicking Make appointment button
+
+# 2024-10-07 00:55:10.324703
++move path/to/scrape_and_click.py to ./scrape_and_click.py
+
+# 2024-10-07 00:57:52.239202
++create ./requirements.txt file for listing all the pip install requirement to be able to run the scrape_and_click.py file
+
+# 2024-10-07 00:58:09.416190
++N
+
+# 2024-10-07 00:58:48.226500
++/run python -m venv .venv
+
+# 2024-10-07 01:00:21.604883
++/run ./.venv/Scripts/active
+
+# 2024-10-07 01:00:30.008290
++N
+
+# 2024-10-07 01:01:04.004674
++/run .\.venv\Scripts\active.bat
+
+# 2024-10-07 01:01:14.156265
++N
+
+# 2024-10-07 01:01:48.826759
++/run ls .\.venv\
+
+# 2024-10-07 01:01:52.319909
++N
+
+# 2024-10-07 01:01:59.577676
++/run ls .\.venv\Scripts
+
+# 2024-10-07 01:02:02.035469
++N
+
+# 2024-10-07 01:02:15.810109
++/run ls .\.venv\Scripts\activate.bat
+
+# 2024-10-07 01:02:18.411329
++N
+
+# 2024-10-07 01:02:23.689035
++/run .\.venv\Scripts\activate.bat
+
+# 2024-10-07 01:02:29.131274
++Y
+
+# 2024-10-07 01:02:47.667654
++/run cmd /c .\.venv\Scripts\activate.bat
+
+# 2024-10-07 01:02:50.880904
++Y
+
+# 2024-10-07 01:05:03.183914
++/run .\.venv\Scripts\activate.bat
+
+# 2024-10-07 01:05:11.554086
++Y
+
+# 2024-10-07 01:05:40.912661
++/run python -m pip install -r .\requirement.txt
+
+# 2024-10-07 01:06:03.952390
++/run python -m pip install -r .\requirements.txt
+
+# 2024-10-07 01:06:03.961388
++/run python -m pip install -r .\requirements.txt
+
+# 2024-10-07 01:06:58.187291
++/run python -m pip install -r requirements.txt
+
+# 2024-10-07 01:07:21.198199
++n
+
+# 2024-10-07 01:07:27.521530
++/run pip install -r requirements.txt
+
+# 2024-10-07 01:07:37.168460
++n
+
+# 2024-10-07 01:07:40.616920
++/run pwd
+
+# 2024-10-07 01:07:52.213649
++y
+
+# 2024-10-07 01:08:23.344284
++/run pip install -r requirements.txt
+
+# 2024-10-07 01:08:34.589131
++Y
+
+# 2024-10-07 01:09:37.929362
++/run python scrape_and_click.py
+
+# 2024-10-07 01:10:08.863195
++Y
+
+# 2024-10-07 01:13:25.988869
++in scrape_and_click.py file. clicking make appointment button will move the browser to open the login page. On that login page is written the demo account to be use. Scrape the login page and update the python code to input username and password field with the demo account, and then submit the login.
+
+# 2024-10-07 01:13:54.094595
++/run python scrape_and_click.py
+
+# 2024-10-07 01:16:52.116422
++/test python scrape_and_click.py
+
+# 2024-10-07 01:19:32.560654
++convert the scrape_and_click.py code to use playwright + chromium instead of selenium
+
+# 2024-10-07 01:20:36.664680
++update requirements.txt according the changes on scrape_and_click.py that using `playwright`
+
+# 2024-10-07 01:21:15.312663
++/run pip install -r requirements.txt
+
+# 2024-10-07 01:21:29.353315
++Y
+
+# 2024-10-07 01:21:40.982018
++/run pip install -r requirements.txt
+
+# 2024-10-07 01:21:48.213083
++Y
+
+# 2024-10-07 01:22:27.738404
++/run python cleanup_invalid_distributions.py
+
+# 2024-10-07 01:24:42.224916
++/test python scrape_and_click.py
+
+# 2024-10-07 01:25:15.482421
++/test python -m pip install -r requirements.txt
+
+# 2024-10-07 01:25:30.088991
++/test python scrape_and_click.py
+
+# 2024-10-07 01:27:14.063520
++update the selectors in scrape_and_click.py according current existing elements on target web
+
+# 2024-10-07 01:27:43.531526
++/test python -m pip install -r requirements.txt
+
+# 2024-10-07 01:28:09.046509
++update the selectors in scrape_and_click.py according current existing elements on target web
+
+# 2024-10-07 01:28:20.605272
++/test python scrape_and_click.py
+
+# 2024-10-07 01:29:56.114932
++update the scrape_and_click.py file to do On make appointment page select seol facility, and choose medicaid. Set date visit to next month. Then book appointment. After the the appointment is created, logout from the web
+
+# 2024-10-07 01:30:18.197541
++/test python scrape_and_click.py
+
+# 2024-10-07 01:31:03.934136
++update the selectors in scrape_and_click.py according current existing elements on target web
+
+# 2024-10-07 01:31:20.775482
++/test python scrape_and_click.py
+
+# 2024-10-07 01:33:39.815568
++test by running 'python scrape_and_click.py', scrape all accessed web page and update the python code according to existing web structure
+
+# 2024-10-07 01:34:11.627731
++/test python scrape_and_click.py
+
+# 2024-10-07 01:38:13.472410
++/drop cleanup_invalid_distributions.py
+
+# 2024-10-07 01:39:20.877565
++update the python code that inputing date to next month in date format according to format written on the field placehorlder
+
+# 2024-10-07 01:40:10.422026
++update the python code that inputing date to next month in date format according to format written on the field placeholder. Scrape the appointment page to get the correct date format
+
+# 2024-10-07 01:40:33.615801
++/test python scrape_and_click.py
+
+# 2024-10-07 01:41:34.762565
++update the python code that inputing date to next month in date format dd/mm/yyyy
+
+# 2024-10-07 01:41:47.296556
++/test python scrape_and_click.py
+
+# 2024-10-07 01:43:51.255213
++update the python code that inputing date from fill to pressing key sequence
+
+# 2024-10-07 01:44:27.651000
++/test python scrape_and_click.py
+
+# 2024-10-07 01:46:52.086706
++Scrape the confirmation page to get correct logout button to get logged out 
+
+# 2024-10-07 01:47:12.409435
++/test python scrape_and_click.py
+
+# 2024-10-07 01:49:54.650519
++Scrape the confirmation page to get correct side menu toggle button and then for clicking logout button to get logged out 
+
+# 2024-10-07 01:50:40.322638
++/test python scrape_and_click.py
+
+# 2024-10-07 01:51:27.863868
++Scrape the confirmation page to get correct side menu toggle button and then for clicking logout button to get logged out 
+
+# 2024-10-07 01:51:49.705276
++/test python scrape_and_click.py
+
+# 2024-10-07 01:54:23.072977
++/commit
+
+# 2024-10-07 01:54:30.063351
++/test python scrape_and_click.py
+
+# 2024-10-07 01:55:17.543126
++validate every page with most notable visual cues
+
+# 2024-10-07 01:56:07.963304
++/test python scrape_and_click.py
+
+# 2024-10-07 01:57:20.944436
++move the base url to a single variable
+
+# 2024-10-07 01:57:55.530448
++/lit
+
+# 2024-10-07 01:58:02.431749
++/lint
+
+# 2024-10-07 01:58:14.584586
++/test flake8
+
+# 2024-10-07 01:58:42.821572
++/test flake8 scrape_and_click.py
+
+# 2024-10-07 01:59:12.197386
++/test python scrape_and_click.py
+
+# 2024-10-07 02:01:11.839803
++take screenshot on every page changes
+
+# 2024-10-07 02:01:57.696057
++/test python scrape_and_click.py
+
+# 2024-10-07 02:03:45.289304
++all produced screenshot image is saved to reports/acp-<datetime>/ folder
+
+# 2024-10-07 02:04:18.504719
++/test python scrape_and_click.py
+
+# 2024-10-07 02:05:32.448732
++create html report in reports/acp-<datetime>/ folder for show casing the produced screenshot images
+
+# 2024-10-07 02:06:16.933681
++/test python scrape_and_click.py
+
+# 2024-10-07 02:08:25.791233
++in the generated image the path img src is still incorrect, always use forward slash as path separators for img src
+
+# 2024-10-07 02:08:46.375549
++/test python scrape_and_click.py
+
+# 2024-10-07 02:16:06.199786
++Html report page is also contains easy to understand processes that has been runned
+
+# 2024-10-07 02:16:54.071741
++/test python scrape_and_click.py
+
+# 2024-10-07 02:18:51.630591
++alongsid with the process description there is also the validation ran complete with Pass or Failed status
+
+# 2024-10-07 02:19:33.980287
++/test python scrape_and_click.py
+
+# 2024-10-07 02:20:45.285869
++differentiate between processes and validation presentation
+
+# 2024-10-07 02:21:14.958569
++/test python scrape_and_click.py
+
+# 2024-10-07 02:23:14.267185
++in html report, validation is subs of process. Validation is presented as table of three columns, validation description, Pass, and Fail columns
+
+# 2024-10-07 02:23:51.912468
++/test python scrape_and_click.py
+
+# 2024-10-07 02:25:40.578303
++The title of html report is "Aider Cura Playwright"
+
+# 2024-10-07 02:27:56.000257
++Change "Proccess Summary" to "Steps"
+
+# 2024-10-07 02:29:20.004566
++After the "Steps" section there is "Step Results" section contained every steps paired with their own validations and results
+
+# 2024-10-07 02:30:00.567647
++/test
+
+# 2024-10-07 02:30:06.861860
++/test python scrape_and_click.py
+
+# 2024-10-07 02:31:16.180392
++Remove the "Validation Results" section
+
+# 2024-10-07 02:32:33.052951
++All screenshot is in "Screenshot" section on html report
+
+# 2024-10-07 02:33:24.315361
++/test python scrape_and_click.py
+
+# 2024-10-07 02:48:31.079041
++tambahkan file README.md dengan judul "Aider Cura Playwright". Deskripsinya project pengujian konsep pembuatan web automation test dengan menggunakan Aider dan gpt-4o-mini sebagai alat utamanya
+
+# 2024-10-07 02:50:21.406359
++buatkan repository baru dengan namam "Aider Cura Playwright" pada github/indraginanjar lalu push
+
+# 2024-10-07 02:50:38.149833
++N
+
+# 2024-10-07 02:52:17.013156
++/git remote add https://github.com/indraginanjar/aider-cura-playwright.git
+
+# 2024-10-07 02:52:25.378873
++/git remote add origin https://github.com/indraginanjar/aider-cura-playwright.git
+
+# 2024-10-07 02:52:39.710977
++/git push -u origin
+
+# 2024-10-07 02:52:44.489775
++/git push -u origin master
+
+# 2024-10-07 02:56:01.273297
++/commit
+
+# 2024-10-07 02:56:51.439514
++keluarkan file .aider.input.history dari daftar .gitignore
+
+# 2024-10-07 02:58:11.198734
++/git status
+
+# 2024-10-07 02:59:04.473227
++/undo
+
+# 2024-10-07 02:59:40.587789
++keluarkan file .aider.input.history dari daftar .gitignore. Akan tetapi pertahankan file-file lain .aider*
+
+# 2024-10-07 02:59:57.749092
++/git status
+
+# 2024-10-07 03:01:04.497657
++kedalam .gitignore, tambahkan folder reports, file-file *.png dan folder .venv
+
+# 2024-10-07 03:01:11.842749
++/git status
+
+# 2024-10-07 03:01:28.332166
++/git add .aider.input.history
+
+# 2024-10-07 03:01:36.566131
++/commit
