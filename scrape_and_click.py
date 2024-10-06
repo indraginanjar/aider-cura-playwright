@@ -3,6 +3,11 @@ from datetime import datetime, timedelta
 import re
 import time
 
+def validate_page(page, expected_elements):
+    for element in expected_elements:
+        page.wait_for_selector(element)
+        print(f"Validated presence of: {element}")
+
 def main():
     with sync_playwright() as p:
         # Launch the Chromium browser
@@ -12,13 +17,14 @@ def main():
         try:
             # Open the target website
             page.goto("https://katalon-demo-cura.herokuapp.com/")
-            
+            validate_page(page, ["text='Make Appointment'"])  # Validate landing page
+
             # Wait for the "Make Appointment" button and click it
-            page.wait_for_selector("text='Make Appointment'")
             page.click("text='Make Appointment'")
 
             # Wait for the username field to be visible
             page.wait_for_selector("input[id='txt-username']")
+            validate_page(page, ["input[id='txt-username']", "input[id='txt-password']"])  # Validate login page
 
             # Scrape the demo account credentials
             username = "John Doe"
@@ -33,6 +39,7 @@ def main():
 
             # Wait for the appointment page to load
             page.wait_for_url("https://katalon-demo-cura.herokuapp.com/#appointment")
+            validate_page(page, ["select[id='combo_facility']", "button[type='submit']"])  # Validate appointment page
 
             # Select the facility
             page.select_option("select[id='combo_facility']", "Seoul CURA Healthcare Center")
@@ -55,6 +62,7 @@ def main():
 
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
+            validate_page(page, ["text='Appointment Confirmation'"])  # Validate confirmation page
 
             # Scrape the confirmation page to find the side menu toggle button
             side_menu_toggle_selector = "#menu-toggle"  # Update this selector based on the actual confirmation page structure
