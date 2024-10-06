@@ -84,6 +84,7 @@ def generate_html_report(steps, validation_results):
             </table>
         </div>
         <div class="screenshots">
+            <h2>Screenshots</h2>
     """
     
     # List all screenshots in the report directory
