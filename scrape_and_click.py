@@ -30,7 +30,7 @@ def main():
             page.click("button[type='submit']")
 
             # Wait for the appointment page to load
-            page.wait_for_url("**/appointment**")
+            page.wait_for_url("https://katalon-demo-cura.herokuapp.com/#appointment")
 
             # Select the facility
             page.select_option("select[id='combo_facility']", "Seoul CURA Healthcare Center")
