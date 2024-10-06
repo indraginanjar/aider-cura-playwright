@@ -38,8 +38,8 @@ def main():
             # Choose Medicaid
             page.check("input[value='Medicaid']")
 
-            # Set the visit date to next month
-            next_month = (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
+            # Set the visit date to next month in MM/DD/YYYY format
+            next_month = (datetime.now() + timedelta(days=30)).strftime("%m/%d/%Y")
             page.fill("input[id='txt_visit_date']", next_month)
 
             # Book the appointment
