@@ -56,7 +56,12 @@ def main():
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
 
-            # Scrape the confirmation page to find the logout button
+            # Scrape the confirmation page to find the side menu toggle button
+            side_menu_toggle_selector = "button[class='navbar-toggler']"  # Update this selector based on the actual confirmation page structure
+            page.wait_for_selector(side_menu_toggle_selector)
+            page.click(side_menu_toggle_selector)  # Click the side menu toggle button
+
+            # Wait for the logout button to be visible in the side menu
             logout_button_selector = "a[href='https://katalon-demo-cura.herokuapp.com/#']"  # Update this selector based on the actual confirmation page structure
             page.wait_for_selector(logout_button_selector)
             page.click(logout_button_selector)  # Click the logout button
