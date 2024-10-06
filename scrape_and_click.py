@@ -1,57 +1,41 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-import time
+from playwright.sync_api import sync_playwright
 
 def main():
-    # Set up the Chrome WebDriver
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+    with sync_playwright() as p:
+        # Launch the Chromium browser
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
 
-    try:
-        # Open the target website
-        driver.get("https://katalon-demo-cura.herokuapp.com/")
-        
-        # Wait for the page to load and click the "Make Appointment" button
-        make_appointment_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.LINK_TEXT, "Make Appointment"))
-        )
-        make_appointment_button.click()
+        try:
+            # Open the target website
+            page.goto("https://katalon-demo-cura.herokuapp.com/")
+            
+            # Wait for the "Make Appointment" button and click it
+            page.wait_for_selector("text='Make Appointment'")
+            page.click("text='Make Appointment'")
 
-        # Wait for the login page to load and ensure the username field is present
-        WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.ID, "txtUsername"))
-        )
+            # Wait for the username field to be visible
+            page.wait_for_selector("#txtUsername")
 
-        # Scrape the demo account credentials
-        username = "John Doe"
-        password = "ThisIsNotAPassword"
+            # Scrape the demo account credentials
+            username = "John Doe"
+            password = "ThisIsNotAPassword"
 
-        # Input the username and password
-        username_field = driver.find_element(By.ID, "txtUsername")
-        password_field = driver.find_element(By.ID, "txtPassword")
-        username_field.send_keys(username)
-        password_field.send_keys(password)
+            # Input the username and password
+            page.fill("#txtUsername", username)
+            page.fill("#txtPassword", password)
 
-        # Submit the login form
-        login_button = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']"))
-        )
-        login_button.click()
+            # Submit the login form
+            page.click("button[type='submit']")
 
-        # Wait for the appointment page to load
-        WebDriverWait(driver, 20).until(
-            EC.url_contains("appointment")
-        )
+            # Wait for the appointment page to load
+            page.wait_for_url("**/appointment**")
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        # Close the browser
-        driver.quit()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            # Close the browser
+            browser.close()
 
 if __name__ == "__main__":
     main()
