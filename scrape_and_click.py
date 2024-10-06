@@ -46,7 +46,7 @@ def generate_html_report():
             html_content += f"""
             <div class="screenshot">
                 <h2>{filename}</h2>
-                <img src="{os.path.join(report_directory, filename)}" alt="{filename}">
+                <img src="{report_directory.replace(os.sep, '/')}/{filename}" alt="{filename}">
             </div>
             """
     
