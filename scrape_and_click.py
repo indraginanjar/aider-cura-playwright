@@ -15,9 +15,9 @@ def validate_page(page, expected_elements):
     for element in expected_elements:
         try:
             page.wait_for_selector(element)
-            validation_results.append(f"Validated presence of: {element} - Pass")
+            validation_results.append((f"Validated presence of: {element}", "Pass", ""))
         except Exception:
-            validation_results.append(f"Validated presence of: {element} - Fail")
+            validation_results.append((f"Validated presence of: {element}", "Fail", ""))
     return validation_results
 
 def take_screenshot(page, name):
@@ -39,6 +39,9 @@ def generate_html_report(steps, validation_results):
             .screenshot {{ margin: 20px; text-align: center; }}
             img {{ max-width: 100%; height: auto; }}
             .steps {{ margin: 20px; }}
+            table {{ width: 100%; border-collapse: collapse; margin: 20px 0; }}
+            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+            th {{ background-color: #f2f2f2; }}
         </style>
     </head>
     <body>
@@ -57,15 +60,29 @@ def generate_html_report(steps, validation_results):
         </div>
         <div class="validation-results">
             <h2>Validation Results</h2>
-            <ul>
+            <table>
+                <tr>
+                    <th>Validation Description</th>
+                    <th>Pass</th>
+                    <th>Fail</th>
+                </tr>
     """
     
     # Add each validation result to the report
     for result in validation_results:
-        html_content += f"<li>{result}</li>"
+        description, status, _ = result
+        pass_status = "✔" if status == "Pass" else ""
+        fail_status = "✖" if status == "Fail" else ""
+        html_content += f"""
+                <tr>
+                    <td>{description}</td>
+                    <td>{pass_status}</td>
+                    <td>{fail_status}</td>
+                </tr>
+        """
     
     html_content += """
-            </ul>
+            </table>
         </div>
         <div class="screenshots">
     """
