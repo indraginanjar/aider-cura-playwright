@@ -25,7 +25,7 @@ def take_screenshot(page, name):
     page.screenshot(path=screenshot_path)
     print(f"Screenshot taken: {screenshot_path}")
 
-def generate_html_report(steps):
+def generate_html_report(steps, validation_results):
     html_content = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -51,6 +51,18 @@ def generate_html_report(steps):
     # Add each step to the summary
     for step in steps:
         html_content += f"<li>{step}</li>"
+    
+    html_content += """
+            </ul>
+        </div>
+        <div class="validation-results">
+            <h2>Validation Results</h2>
+            <ul>
+    """
+    
+    # Add each validation result to the report
+    for result in validation_results:
+        html_content += f"<li>{result}</li>"
     
     html_content += """
             </ul>
@@ -82,6 +94,7 @@ def generate_html_report(steps):
 
 def main():
     steps = []  # List to hold the steps taken during execution
+    validation_results = []  # List to hold validation results
     with sync_playwright() as p:
         # Launch the Chromium browser
         browser = p.chromium.launch(headless=False)
@@ -92,8 +105,8 @@ def main():
             page.goto(BASE_URL)
             steps.append("Opened the landing page.")
             take_screenshot(page, "landing_page")  # Take screenshot of landing page
-            validation_results = validate_page(page, ["text='Make Appointment'"])  # Validate landing page
-            steps.extend(validation_results)
+            validation_results.extend(validate_page(page, ["text='Make Appointment'"]))  # Validate landing page
+            steps.append("Validated landing page.")
 
             # Wait for the "Make Appointment" button and click it
             page.click("text='Make Appointment'")
@@ -102,8 +115,8 @@ def main():
 
             # Wait for the username field to be visible
             page.wait_for_selector("input[id='txt-username']")
-            validation_results = validate_page(page, ["input[id='txt-username']", "input[id='txt-password']"])  # Validate login page
-            steps.extend(validation_results)
+            validation_results.extend(validate_page(page, ["input[id='txt-username']", "input[id='txt-password']"]))  # Validate login page
+            steps.append("Validated login page.")
 
             # Scrape the demo account credentials
             username = "John Doe"
@@ -121,8 +134,8 @@ def main():
 
             # Wait for the appointment page to load
             page.wait_for_url(f"{BASE_URL}#appointment")
-            validation_results = validate_page(page, ["select[id='combo_facility']", "button[type='submit']"])  # Validate appointment page
-            steps.extend(validation_results)
+            validation_results.extend(validate_page(page, ["select[id='combo_facility']", "button[type='submit']"]))  # Validate appointment page
+            steps.append("Validated appointment page.")
 
             # Select the facility
             page.select_option("select[id='combo_facility']", "Seoul CURA Healthcare Center")
@@ -150,9 +163,8 @@ def main():
 
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
-            validation_results = validate_page(page, ["text='Appointment Confirmation'", "text='Go to Homepage'"])  # Validate confirmation page
-            steps.extend(validation_results)
-            steps.append("Confirmed the appointment.")
+            validation_results.extend(validate_page(page, ["text='Appointment Confirmation'", "text='Go to Homepage'"]))  # Validate confirmation page
+            steps.append("Validated confirmation page.")
 
             # Scrape the confirmation page to find the side menu toggle button
             side_menu_toggle_selector = "#menu-toggle"  # Update this selector based on the actual confirmation page structure
@@ -172,7 +184,7 @@ def main():
             browser.close()
 
     # Generate the HTML report after all actions
-    generate_html_report(steps)
+    generate_html_report(steps, validation_results)
 
 if __name__ == "__main__":
     main()
