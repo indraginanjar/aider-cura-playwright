@@ -1,14 +1,15 @@
 from playwright.sync_api import sync_playwright
 from datetime import datetime, timedelta
-import re
 import time
 
 BASE_URL = "https://katalon-demo-cura.herokuapp.com/"
+
 
 def validate_page(page, expected_elements):
     for element in expected_elements:
         page.wait_for_selector(element)
         print(f"Validated presence of: {element}")
+
 
 def main():
     with sync_playwright() as p:
@@ -81,6 +82,7 @@ def main():
         finally:
             # Close the browser
             browser.close()
+
 
 if __name__ == "__main__":
     main()
