@@ -20,17 +20,18 @@ def main():
         )
         make_appointment_button.click()
 
-        # Wait for the login page to load and scrape the demo account credentials
+        # Wait for the login page to load
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "txtUsername"))
+        )
+
+        # Scrape the demo account credentials
         username = "John Doe"
         password = "ThisIsNotAPassword"
 
         # Input the username and password
-        username_field = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "txtUsername"))
-        )
-        password_field = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "txtPassword"))
-        )
+        username_field = driver.find_element(By.ID, "txtUsername")
+        password_field = driver.find_element(By.ID, "txtPassword")
         username_field.send_keys(username)
         password_field.send_keys(password)
 
