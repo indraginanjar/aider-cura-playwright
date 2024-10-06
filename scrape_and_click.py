@@ -62,7 +62,7 @@ def main():
 
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
-            validate_page(page, ["text='Appointment Confirmation'"])  # Validate confirmation page
+            validate_page(page, ["text='Appointment Confirmation'", "text='Go to Homepage'"])  # Validate confirmation page
 
             # Scrape the confirmation page to find the side menu toggle button
             side_menu_toggle_selector = "#menu-toggle"  # Update this selector based on the actual confirmation page structure
