@@ -47,7 +47,7 @@ def generate_html_report(steps, validation_results):
     <body>
         <h1>Screenshot Report</h1>
         <div class="steps">
-            <h2>Process Summary</h2>
+            <h2>Steps</h2>
             <ul>
     """
     
