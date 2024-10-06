@@ -1,2 +1,1 @@
-selenium
-webdriver-manager
+python -m pip install -r .\requirements.txt
