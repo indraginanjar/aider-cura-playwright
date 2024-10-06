@@ -58,6 +58,31 @@ def generate_html_report(steps, validation_results):
     html_content += """
             </ul>
         </div>
+        <div class="step-results">
+            <h2>Step Results</h2>
+            <table>
+                <tr>
+                    <th>Step Description</th>
+                    <th>Validation Description</th>
+                    <th>Result</th>
+                </tr>
+    """
+    
+    # Pair each step with its validation result
+    for i, step in enumerate(steps):
+        if i < len(validation_results):
+            description, status, _ = validation_results[i]
+            html_content += f"""
+                <tr>
+                    <td>{step}</td>
+                    <td>{description}</td>
+                    <td>{status}</td>
+                </tr>
+            """
+    
+    html_content += """
+            </table>
+        </div>
         <div class="validation-results">
             <h2>Validation Results</h2>
             <table>
