@@ -32,7 +32,7 @@ def generate_html_report(steps, validation_results):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Screenshot Report</title>
+        <title>Aider Cura Playwright</title>
         <style>
             body {{ font-family: Arial, sans-serif; }}
             h1 {{ text-align: center; }}
