@@ -20,7 +20,7 @@ def main():
         )
         make_appointment_button.click()
 
-        # Wait for the login page to load
+        # Wait for the login page to load and ensure the username field is present
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "txtUsername"))
         )
@@ -41,7 +41,7 @@ def main():
         )
         login_button.click()
 
-        # Wait for a moment to see the result
+        # Wait for the appointment page to load
         WebDriverWait(driver, 10).until(
             EC.url_contains("appointment")
         )
