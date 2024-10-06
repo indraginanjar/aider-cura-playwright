@@ -1,6 +1,7 @@
 from playwright.sync_api import sync_playwright
 from datetime import datetime, timedelta
 import re
+import time
 
 def main():
     with sync_playwright() as p:
@@ -42,7 +43,12 @@ def main():
             # Set the visit date to next month in the format dd/mm/yyyy
             next_month = (datetime.now() + timedelta(days=30))
             formatted_date = next_month.strftime("%d/%m/%Y")  # Format as "DD/MM/YYYY"
-            page.fill("input[id='txt_visit_date']", formatted_date)
+
+            # Press the key sequence to input the date
+            date_input_selector = "input[id='txt_visit_date']"
+            page.click(date_input_selector)  # Click to focus on the input field
+            time.sleep(1)  # Wait for a moment to ensure the field is focused
+            page.keyboard.type(formatted_date)  # Type the formatted date
 
             # Book the appointment
             page.click("button[type='submit']")
