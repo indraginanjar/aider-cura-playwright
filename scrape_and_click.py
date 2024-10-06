@@ -11,6 +11,11 @@ def validate_page(page, expected_elements):
         print(f"Validated presence of: {element}")
 
 
+def take_screenshot(page, name):
+    page.screenshot(path=f"{name}.png")
+    print(f"Screenshot taken: {name}.png")
+
+
 def main():
     with sync_playwright() as p:
         # Launch the Chromium browser
@@ -20,10 +25,12 @@ def main():
         try:
             # Open the target website
             page.goto(BASE_URL)
+            take_screenshot(page, "landing_page")  # Take screenshot of landing page
             validate_page(page, ["text='Make Appointment'"])  # Validate landing page
 
             # Wait for the "Make Appointment" button and click it
             page.click("text='Make Appointment'")
+            take_screenshot(page, "login_page")  # Take screenshot of login page
 
             # Wait for the username field to be visible
             page.wait_for_selector("input[id='txt-username']")
@@ -39,6 +46,7 @@ def main():
 
             # Submit the login form
             page.click("button[type='submit']")
+            take_screenshot(page, "appointment_page")  # Take screenshot of appointment page
 
             # Wait for the appointment page to load
             page.wait_for_url(f"{BASE_URL}#appointment")
@@ -62,6 +70,7 @@ def main():
 
             # Book the appointment
             page.click("button[type='submit']")
+            take_screenshot(page, "confirmation_page")  # Take screenshot of confirmation page
 
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
