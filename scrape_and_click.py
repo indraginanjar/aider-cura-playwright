@@ -20,6 +20,48 @@ def take_screenshot(page, name):
     page.screenshot(path=screenshot_path)
     print(f"Screenshot taken: {screenshot_path}")
 
+def generate_html_report():
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Screenshot Report</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; }}
+            h1 {{ text-align: center; }}
+            .screenshot {{ margin: 20px; text-align: center; }}
+            img {{ max-width: 100%; height: auto; }}
+        </style>
+    </head>
+    <body>
+        <h1>Screenshot Report</h1>
+        <div class="screenshots">
+    """
+    
+    # List all screenshots in the report directory
+    for filename in os.listdir(report_directory):
+        if filename.endswith(".png"):
+            html_content += f"""
+            <div class="screenshot">
+                <h2>{filename}</h2>
+                <img src="{os.path.join(report_directory, filename)}" alt="{filename}">
+            </div>
+            """
+    
+    html_content += """
+        </div>
+    </body>
+    </html>
+    """
+    
+    # Write the HTML content to a file
+    report_path = os.path.join(report_directory, "report.html")
+    with open(report_path, "w") as report_file:
+        report_file.write(html_content)
+    print(f"HTML report generated: {report_path}")
+
 def main():
     with sync_playwright() as p:
         # Launch the Chromium browser
@@ -95,6 +137,9 @@ def main():
         finally:
             # Close the browser
             browser.close()
+
+    # Generate the HTML report after all actions
+    generate_html_report()
 
 if __name__ == "__main__":
     main()
