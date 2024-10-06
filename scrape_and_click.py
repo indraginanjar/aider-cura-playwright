@@ -39,13 +39,9 @@ def main():
             # Choose Medicaid
             page.check("input[value='Medicaid']")
 
-            # Scrape the date format from the placeholder
-            date_placeholder = page.get_attribute("input[id='txt_visit_date']", "placeholder")
-            date_format = re.search(r'\b(\w{3})\s(\d{1,2}),\s(\d{4})\b', date_placeholder)
-
-            # Set the visit date to next month in the format extracted from the placeholder
+            # Set the visit date to next month in the format dd/mm/yyyy
             next_month = (datetime.now() + timedelta(days=30))
-            formatted_date = next_month.strftime("%b %d, %Y")  # Format as "MMM DD, YYYY"
+            formatted_date = next_month.strftime("%d/%m/%Y")  # Format as "DD/MM/YYYY"
             page.fill("input[id='txt_visit_date']", formatted_date)
 
             # Book the appointment
