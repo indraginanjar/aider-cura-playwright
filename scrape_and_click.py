@@ -20,7 +20,7 @@ def take_screenshot(page, name):
     page.screenshot(path=screenshot_path)
     print(f"Screenshot taken: {screenshot_path}")
 
-def generate_html_report():
+def generate_html_report(steps):
     html_content = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -33,10 +33,23 @@ def generate_html_report():
             h1 {{ text-align: center; }}
             .screenshot {{ margin: 20px; text-align: center; }}
             img {{ max-width: 100%; height: auto; }}
+            .steps {{ margin: 20px; }}
         </style>
     </head>
     <body>
         <h1>Screenshot Report</h1>
+        <div class="steps">
+            <h2>Process Summary</h2>
+            <ul>
+    """
+    
+    # Add each step to the summary
+    for step in steps:
+        html_content += f"<li>{step}</li>"
+    
+    html_content += """
+            </ul>
+        </div>
         <div class="screenshots">
     """
     
@@ -63,6 +76,7 @@ def generate_html_report():
     print(f"HTML report generated: {report_path}")
 
 def main():
+    steps = []  # List to hold the steps taken during execution
     with sync_playwright() as p:
         # Launch the Chromium browser
         browser = p.chromium.launch(headless=False)
@@ -71,11 +85,13 @@ def main():
         try:
             # Open the target website
             page.goto(BASE_URL)
+            steps.append("Opened the landing page.")
             take_screenshot(page, "landing_page")  # Take screenshot of landing page
             validate_page(page, ["text='Make Appointment'"])  # Validate landing page
 
             # Wait for the "Make Appointment" button and click it
             page.click("text='Make Appointment'")
+            steps.append("Clicked on 'Make Appointment'.")
             take_screenshot(page, "login_page")  # Take screenshot of login page
 
             # Wait for the username field to be visible
@@ -89,9 +105,11 @@ def main():
             # Input the username and password
             page.fill("input[id='txt-username']", username)
             page.fill("input[id='txt-password']", password)
+            steps.append("Entered username and password.")
 
             # Submit the login form
             page.click("button[type='submit']")
+            steps.append("Submitted the login form.")
             take_screenshot(page, "appointment_page")  # Take screenshot of appointment page
 
             # Wait for the appointment page to load
@@ -100,9 +118,11 @@ def main():
 
             # Select the facility
             page.select_option("select[id='combo_facility']", "Seoul CURA Healthcare Center")
+            steps.append("Selected the facility.")
 
             # Choose Medicaid
             page.check("input[value='Medicaid']")
+            steps.append("Chose Medicaid.")
 
             # Set the visit date to next month in the format dd/mm/yyyy
             next_month = (datetime.now() + timedelta(days=30))
@@ -113,14 +133,17 @@ def main():
             page.click(date_input_selector)  # Click to focus on the input field
             time.sleep(1)  # Wait for a moment to ensure the field is focused
             page.keyboard.type(formatted_date)  # Type the formatted date
+            steps.append(f"Set the visit date to {formatted_date}.")
 
             # Book the appointment
             page.click("button[type='submit']")
+            steps.append("Booked the appointment.")
             take_screenshot(page, "confirmation_page")  # Take screenshot of confirmation page
 
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
             validate_page(page, ["text='Appointment Confirmation'", "text='Go to Homepage'"])  # Validate confirmation page
+            steps.append("Confirmed the appointment.")
 
             # Scrape the confirmation page to find the side menu toggle button
             side_menu_toggle_selector = "#menu-toggle"  # Update this selector based on the actual confirmation page structure
@@ -131,6 +154,7 @@ def main():
             logout_button_selector = "text='Logout'"  # Update this selector based on the actual confirmation page structure
             page.wait_for_selector(logout_button_selector)
             page.click(logout_button_selector)  # Click the logout button
+            steps.append("Logged out.")
 
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -139,7 +163,7 @@ def main():
             browser.close()
 
     # Generate the HTML report after all actions
-    generate_html_report()
+    generate_html_report(steps)
 
 if __name__ == "__main__":
     main()
