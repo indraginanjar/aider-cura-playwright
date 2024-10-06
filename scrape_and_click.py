@@ -11,9 +11,14 @@ report_directory = f"reports/acp-{timestamp}"
 os.makedirs(report_directory, exist_ok=True)
 
 def validate_page(page, expected_elements):
+    validation_results = []
     for element in expected_elements:
-        page.wait_for_selector(element)
-        print(f"Validated presence of: {element}")
+        try:
+            page.wait_for_selector(element)
+            validation_results.append(f"Validated presence of: {element} - Pass")
+        except Exception:
+            validation_results.append(f"Validated presence of: {element} - Fail")
+    return validation_results
 
 def take_screenshot(page, name):
     screenshot_path = os.path.join(report_directory, f"{name}.png")
@@ -87,7 +92,8 @@ def main():
             page.goto(BASE_URL)
             steps.append("Opened the landing page.")
             take_screenshot(page, "landing_page")  # Take screenshot of landing page
-            validate_page(page, ["text='Make Appointment'"])  # Validate landing page
+            validation_results = validate_page(page, ["text='Make Appointment'"])  # Validate landing page
+            steps.extend(validation_results)
 
             # Wait for the "Make Appointment" button and click it
             page.click("text='Make Appointment'")
@@ -96,7 +102,8 @@ def main():
 
             # Wait for the username field to be visible
             page.wait_for_selector("input[id='txt-username']")
-            validate_page(page, ["input[id='txt-username']", "input[id='txt-password']"])  # Validate login page
+            validation_results = validate_page(page, ["input[id='txt-username']", "input[id='txt-password']"])  # Validate login page
+            steps.extend(validation_results)
 
             # Scrape the demo account credentials
             username = "John Doe"
@@ -114,7 +121,8 @@ def main():
 
             # Wait for the appointment page to load
             page.wait_for_url(f"{BASE_URL}#appointment")
-            validate_page(page, ["select[id='combo_facility']", "button[type='submit']"])  # Validate appointment page
+            validation_results = validate_page(page, ["select[id='combo_facility']", "button[type='submit']"])  # Validate appointment page
+            steps.extend(validation_results)
 
             # Select the facility
             page.select_option("select[id='combo_facility']", "Seoul CURA Healthcare Center")
@@ -142,7 +150,8 @@ def main():
 
             # Wait for the appointment confirmation
             page.wait_for_selector("text='Appointment Confirmation'")
-            validate_page(page, ["text='Appointment Confirmation'", "text='Go to Homepage'"])  # Validate confirmation page
+            validation_results = validate_page(page, ["text='Appointment Confirmation'", "text='Go to Homepage'"])  # Validate confirmation page
+            steps.extend(validation_results)
             steps.append("Confirmed the appointment.")
 
             # Scrape the confirmation page to find the side menu toggle button
